@@ -21,18 +21,21 @@ public class Day1 {
 
 				direction += turn.equals("R") ? 1 : -1;
 				direction %= 4;
+				direction = direction == -1 ? 3 : direction;
 
 				if (direction == 0) {
 					lat += count;
-				} else if (direction == 1) {
+				}
+				else if (direction == 1) {
 					lon += count;
-				} else if (direction == 2) {
+				}
+				else if (direction == 2) {
 					lat -= count;
-				} else if (direction == 3) {
+				}
+				else if (direction == 3) {
 					lon -= count;
 				}
 
-				System.out.println(op + " -> " + lat + ":" + lon + " " + direction);
 			}
 
 			System.out.println(lat + " " + lon + " -> " + (Math.abs(lat) + Math.abs(lon)));
