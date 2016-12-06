@@ -2,11 +2,15 @@ package lars.adventofcode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Day1 {
 
 	public static void main(String[] args) throws FileNotFoundException {
+
+		Set<String> visited = new HashSet<>();
 
 		int direction = 0;
 		int lat = 0;
@@ -23,6 +27,9 @@ public class Day1 {
 				direction %= 4;
 				direction = direction == -1 ? 3 : direction;
 
+				int i = lat;
+				int j = lon;
+
 				if (direction == 0) {
 					lat += count;
 				}
@@ -34,6 +41,30 @@ public class Day1 {
 				}
 				else if (direction == 3) {
 					lon -= count;
+				}
+
+				while (i != lat || j != lon) {
+					if (i < lat) {
+						i++;
+					}
+					else if (i > lat) {
+						i--;
+					}
+
+					if (j < lon) {
+						j++;
+					}
+					else if (j > lon) {
+						j--;
+					}
+					String pos = i + ":" + j;
+
+					boolean ok = visited.add(pos);
+					if (!ok) {
+						System.out.println(pos + " -> " + (Math.abs(i) + Math.abs(j)));
+						return;
+					}
+
 				}
 
 			}
