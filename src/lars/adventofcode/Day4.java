@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javafx.util.Pair;
+
 public class Day4 {
 
 	public static void main(String[] args) throws IOException {
@@ -23,6 +25,16 @@ public class Day4 {
 				.sum();
 
 		System.out.println("Part 1: " + part1);
+
+		int part2 = lines.stream()
+				.filter(Day4::isValid)
+				.map(Day4::decrypt)
+				.filter(l -> l.getKey().contains("northpole"))
+				.mapToInt(Pair::getValue)
+				.findFirst()
+				.getAsInt();
+
+		System.out.println("Part 2: " + part2);
 	}
 
 	private static boolean isValid(String line) {
@@ -57,6 +69,29 @@ public class Day4 {
 		String realChecksum = line.substring(line.indexOf('[') + 1, line.indexOf(']'));
 
 		return checksum.equals(realChecksum);
+	}
+
+	private static Pair<String, Integer> decrypt(String line) {
+
+		int pos = line.lastIndexOf('-');
+		int count = Integer.parseInt(line.substring(pos + 1, line.indexOf('[')));
+
+		String decrypted = "";
+		char[] chars = line.substring(0, pos).toCharArray();
+		for (char c : chars) {
+			if (c == '-') {
+				decrypted += " ";
+				continue;
+			}
+
+			int nCharV = (c + count);
+			nCharV = (nCharV - 97) % 26 + 97;
+			char nChar = (char) nCharV;
+
+			decrypted += nChar;
+		}
+
+		return new Pair<String, Integer>(decrypted, count);
 	}
 
 }
