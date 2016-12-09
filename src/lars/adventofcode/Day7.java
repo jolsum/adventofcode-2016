@@ -3,6 +3,7 @@ package lars.adventofcode;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Day7 {
@@ -25,23 +26,13 @@ public class Day7 {
 			return false;
 		}
 
-		// Matcher matcher = HYPERNET_SEQUENCE.matcher(line);
-		//
-		// while (matcher.find()) {
-		// String hypernetSequence = matcher.group(1);
-		// if (containsAbba(hypernetSequence)) {
-		// System.out.println(line + " > " + hypernetSequence);
-		// return false;
-		// }
-		// }
-		int i = 0;
-		while ((i = line.indexOf('[', i)) != -1) {
-			int end = line.indexOf(']', i);
-			String hypernetSequence = line.substring(i + 1, end);
+		Matcher matcher = HYPERNET_SEQUENCE.matcher(line);
+
+		while (matcher.find()) {
+			String hypernetSequence = matcher.group(1);
 			if (containsAbba(hypernetSequence)) {
 				return false;
 			}
-			i = end;
 		}
 
 		return true;
@@ -60,7 +51,6 @@ public class Day7 {
 			part2 = new StringBuilder(part2).reverse().toString();
 
 			if (part1.equals(part2)) {
-				System.out.println(line + " " + part1);
 				return true;
 			}
 		}
