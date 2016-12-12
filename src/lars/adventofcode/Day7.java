@@ -30,6 +30,7 @@ public class Day7 {
 
 		while (matcher.find()) {
 			String hypernetSequence = matcher.group(1);
+
 			if (containsAbba(hypernetSequence)) {
 				return false;
 			}
@@ -44,13 +45,9 @@ public class Day7 {
 			String part1 = line.substring(i, i + 2);
 			String part2 = line.substring(i + 2, i + 4);
 
-			if (part1.equals(part2)) {
-				return false;
-			}
+			String part2rev = new StringBuilder(part2).reverse().toString();
 
-			part2 = new StringBuilder(part2).reverse().toString();
-
-			if (part1.equals(part2)) {
+			if (part1.equals(part2rev) && !part1.equals(part2)) {
 				return true;
 			}
 		}
