@@ -12,26 +12,33 @@ import java.util.TreeSet;
 public class Day10 {
 
 	public static void main(String[] args) throws IOException {
-		
+
 		List<String> lines = Files.readAllLines(Paths.get("input", "10_test.txt"));
-		
+
 	}
-	
-	
-	private interface ChipReceiver {
-		
-		void receive(Integer chip);
-		
+
+	private static abstract class ChipReceiver {
+
+		final int id;
+		final SortedSet<Integer> chips = new TreeSet<>();
+
+		public ChipReceiver(int id) {
+			this.id = id;
+		}
+
+		abstract void receive(Integer chip);
+
 	}
-	
-	
-	private static class Bot implements ChipReceiver{
-		
-		SortedSet<Integer> chips = new TreeSet<>();
-		
+
+	private static class Bot extends ChipReceiver {
+
 		ChipReceiver lowTarget;
 		ChipReceiver highTarget;
-		
+
+		public Bot(int id) {
+			super(id);
+		}
+
 		@Override
 		public void receive(Integer chip) {
 			chips.add(chip);
@@ -41,18 +48,20 @@ public class Day10 {
 			}
 			chips.clear();
 		}
-		
-	}
-	
-	private static class Output implements ChipReceiver {
 
-		Set<Integer> chips = new HashSet<>();
+	}
+
+	private static class Output extends ChipReceiver {
+
+		public Output(int id) {
+			super(id);
+		}
 		
 		@Override
 		public void receive(Integer chip) {
 			chips.add(chip);
 		}
-		
+
 	}
-	
+
 }
