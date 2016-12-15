@@ -16,6 +16,9 @@ public class Day12 {
 
 		List<String> lines = Files.readAllLines(Paths.get("input", "12.txt"));
 
+		// Part 2
+		// registers.put("c", new AtomicInteger(1));
+
 		for (int i = 0; i < lines.size(); i++) {
 
 			String[] parts = lines.get(i).split(" ");
@@ -44,7 +47,7 @@ public class Day12 {
 
 		}
 
-		System.out.println("Part 1: " + registers.get("a").get());
+		System.out.println("Register a: " + registers.get("a").get());
 
 	}
 
