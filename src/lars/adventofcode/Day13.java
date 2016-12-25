@@ -1,9 +1,8 @@
 package lars.adventofcode;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,30 +17,37 @@ public class Day13 {
 	private static final Location START = new Location(1, 1);
 	private static final Location GOAL = new Location(31, 39);
 
-	private static int lowest = Integer.MAX_VALUE;
+	private static final Set<Location> AT_MOST_50 = new HashSet<>();
+	private static Set<Location> SHORTEST = null;
 
 	public static void main(String[] args) {
 
-		bfs(GOAL, START, Collections.emptySet(), Collections.emptyList());
+		bfs(GOAL, START, Collections.emptySet());
 
+		System.out.println("Part 1: " + (SHORTEST.size() - 1));
+		System.out.println("Part 2: " + AT_MOST_50.size());
 	}
 
-	private static void bfs(Location goal, Location current, Set<Location> visited, List<Location> path) {
+	private static void bfs(Location goal, Location current, Set<Location> visited) {
+
+		int steps = visited.size();
 
 		visited = new HashSet<>(visited);
 		visited.add(current);
 
-		path = new ArrayList<>(path);
-		path.add(current);
-
 		if (current.equals(goal)) {
-			System.out.println("Reached goal in " + (path.size() - 1) + " steps: " + path);
-			lowest = Math.min(lowest, path.size() - 1);
+			if (SHORTEST == null || visited.size() < SHORTEST.size()) {
+				SHORTEST = visited;
+			}
 			return;
 		}
 
+		if (steps <= 50) {
+			AT_MOST_50.add(current);
+		}
+
 		// Already found a better path
-		if (path.size() > lowest) {
+		if (SHORTEST != null && steps > SHORTEST.size()) {
 			return;
 		}
 
@@ -54,7 +60,7 @@ public class Day13 {
 				continue;
 			}
 
-			bfs(goal, newLocation, visited, path);
+			bfs(goal, newLocation, visited);
 		}
 
 	}
@@ -83,22 +89,22 @@ public class Day13 {
 
 		public Location move(Direction direction) {
 			switch (direction) {
-			case UP:
-				return new Location(x, y + 1);
-			case DOWN:
-				return new Location(x, y - 1);
-			case LEFT:
-				return new Location(x - 1, y);
-			case RIGHT:
-				return new Location(x + 1, y);
-			default:
-				throw new IllegalArgumentException();
+				case UP:
+					return new Location(x, y + 1);
+				case DOWN:
+					return new Location(x, y - 1);
+				case LEFT:
+					return new Location(x - 1, y);
+				case RIGHT:
+					return new Location(x + 1, y);
+				default:
+					throw new IllegalArgumentException();
 			}
 		}
 
 		@Override
 		public int hashCode() {
-			return 11 * x + 31 * y;
+			return Objects.hash(x, y);
 		}
 
 		@Override
