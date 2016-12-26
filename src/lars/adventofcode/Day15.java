@@ -1,23 +1,24 @@
 package lars.adventofcode;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Day15 {
 
 	public static void main(String[] args) {
 
-		// List<Disc> discs = Arrays.asList(
-		// new Disc(5, 4),
-		// new Disc(2, 1));
+		List<Disc> discs = new ArrayList<>();
 
-		List<Disc> discs = Arrays.asList(
-				new Disc(13, 11),
-				new Disc(5, 0),
-				new Disc(17, 11),
-				new Disc(3, 0),
-				new Disc(7, 2),
-				new Disc(19, 17));
+		// Part 1
+		discs.add(new Disc(13, 11));
+		discs.add(new Disc(5, 0));
+		discs.add(new Disc(17, 11));
+		discs.add(new Disc(3, 0));
+		discs.add(new Disc(7, 2));
+		discs.add(new Disc(19, 17));
+
+		// Part 2
+		discs.add(new Disc(11, 0));
 
 		for (int time = 0;; time++) {
 
