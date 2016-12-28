@@ -16,10 +16,9 @@ public class Day17 {
 
 	public static void main(String[] args) {
 
-		bfs("hijkl", new Location(3, 3), new Location(0, 0), "");
+		bfs("dmypynyp", new Location(3, 3), new Location(0, 0), "");
 
 		System.out.println("Part 1: " + SHORTEST);
-		// System.out.println((int) 'b' + " " + (int) '9');
 	}
 
 	private static void bfs(String input, Location goal, Location current, String path) {
@@ -40,8 +39,6 @@ public class Day17 {
 
 		Set<Direction> possibleDirections = getPossibleDirections(current, md5);
 
-		System.out.println(current + " " + path + " " + possibleDirections);
-
 		for (Direction direction : possibleDirections) {
 
 			Location newLocation = current.move(direction);
@@ -54,16 +51,16 @@ public class Day17 {
 	private static Set<Direction> getPossibleDirections(Location location, String md5) {
 
 		Set<Direction> ret = new HashSet<>();
-		if (md5.charAt(0) < 'b' && location.x > 0) {
+		if (md5.charAt(0) > 'a' && location.y > 0) {
 			ret.add(Direction.U);
 		}
-		if (md5.charAt(1) < 'b' && location.x < 3) {
+		if (md5.charAt(1) > 'a' && location.y < 3) {
 			ret.add(Direction.D);
 		}
-		if (md5.charAt(2) < 'b' && location.y > 0) {
+		if (md5.charAt(2) > 'a' && location.x > 0) {
 			ret.add(Direction.L);
 		}
-		if (md5.charAt(3) < 'b' && location.y < 3) {
+		if (md5.charAt(3) > 'a' && location.x < 3) {
 			ret.add(Direction.R);
 		}
 
@@ -82,16 +79,16 @@ public class Day17 {
 
 		public Location move(Direction direction) {
 			switch (direction) {
-				case U:
-					return new Location(x, y + 1);
-				case D:
-					return new Location(x, y - 1);
-				case L:
-					return new Location(x - 1, y);
-				case R:
-					return new Location(x + 1, y);
-				default:
-					throw new IllegalArgumentException();
+			case U:
+				return new Location(x, y - 1);
+			case D:
+				return new Location(x, y + 1);
+			case L:
+				return new Location(x - 1, y);
+			case R:
+				return new Location(x + 1, y);
+			default:
+				throw new IllegalArgumentException();
 			}
 		}
 
