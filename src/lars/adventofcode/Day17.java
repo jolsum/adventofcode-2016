@@ -13,30 +13,29 @@ public class Day17 {
 	}
 
 	private static String SHORTEST = null;
+	private static String LONGEST = null;
 
 	public static void main(String[] args) {
 
 		bfs("dmypynyp", new Location(3, 3), new Location(0, 0), "");
 
 		System.out.println("Part 1: " + SHORTEST);
+		System.out.println("Part 2: " + LONGEST.length());
 	}
 
 	private static void bfs(String input, Location goal, Location current, String path) {
-
-		String md5 = DigestUtils.md5Hex(input + path);
 
 		if (current.equals(goal)) {
 			if (SHORTEST == null || path.length() < SHORTEST.length()) {
 				SHORTEST = path;
 			}
+			if (LONGEST == null || path.length() > LONGEST.length()) {
+				LONGEST = path;
+			}
 			return;
 		}
 
-		// Already found a better path
-		if (SHORTEST != null && path.length() > SHORTEST.length()) {
-			return;
-		}
-
+		String md5 = DigestUtils.md5Hex(input + path);
 		Set<Direction> possibleDirections = getPossibleDirections(current, md5);
 
 		for (Direction direction : possibleDirections) {
