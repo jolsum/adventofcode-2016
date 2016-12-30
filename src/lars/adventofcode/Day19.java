@@ -8,8 +8,11 @@ public class Day19 {
 
 	public static void main(String[] args) {
 
-		int elves = 3014387;
+		System.out.println("Test: " + part1(5));
+		System.out.println("Part 1: " + part1(3014387));
+	}
 
+	private static int part1(int elves) {
 		List<Integer> elvesWithPresents = new ArrayList<>();
 		for (int i = 1; i <= elves; i++) {
 			elvesWithPresents.add(i);
@@ -17,31 +20,25 @@ public class Day19 {
 
 		Iterator<Integer> it = elvesWithPresents.iterator();
 		while (it.hasNext() && elvesWithPresents.size() > 1) {
-			Integer elf = it.next();
+
+			it.next();
 
 			// Reached end?
 			if (!it.hasNext()) {
-				// System.out.println("Reached end for " + elf);
 				it = elvesWithPresents.iterator();
 			}
 
-			Integer victim = it.next();
-			// System.out.println(elf + " steals from " + victim + " (" +
-			// elvesWithPresents.size() + ")");
+			it.next();
 			it.remove();
 
 			// Reached end?
 			if (!it.hasNext()) {
-				// System.out.println("Reached end for " + elf);
 				it = elvesWithPresents.iterator();
 			}
 
-			if (elvesWithPresents.size() % 1000 == 0) {
-				System.out.println(elvesWithPresents.size());
-			}
 		}
 
-		System.out.println(elvesWithPresents);
+		return elvesWithPresents.get(0);
 	}
 
 }
