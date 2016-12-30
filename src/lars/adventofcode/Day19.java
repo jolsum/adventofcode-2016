@@ -8,8 +8,8 @@ public class Day19 {
 
 	public static void main(String[] args) {
 
-		// System.out.println("Test: " + part1(5));
-		// System.out.println("Part 1: " + part1(3014387));
+		System.out.println("Test: " + part1(5));
+		System.out.println("Part 1: " + part1(3014387));
 
 		System.out.println("Test: " + part2(5));
 		System.out.println("Part 2: " + part2(3014387));
@@ -52,13 +52,10 @@ public class Day19 {
 		}
 
 		for (int i = 0; elvesWithPresents.size() > 1;) {
-			Integer elf = elvesWithPresents.get(i);
 
 			int victimIndex = (i + elvesWithPresents.size() / 2) % elvesWithPresents.size();
 
-			Integer victim = elvesWithPresents.remove(victimIndex);
-			// System.out.println(elf + " steals from " + victim + " > " +
-			// elvesWithPresents);
+			elvesWithPresents.remove(victimIndex);
 
 			if (victimIndex > i + 1) {
 				i++;
@@ -66,7 +63,6 @@ public class Day19 {
 
 			if (i > elvesWithPresents.size() - 1) {
 				i = 0;
-				System.out.println(elvesWithPresents.size());
 			}
 
 		}
